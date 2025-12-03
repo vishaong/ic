@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>쿠팡 재고 조회</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🛒 쿠팡 재고 조회 시스템</h1>
+      <p>상품 ID를 입력하고 재고 정보를 조회하세요</p>
+    </header>
+
+    <main>
+      <!-- API 키 입력 섹션 -->
+      <section class="card auth-section">
+        <h2>API 인증</h2>
+        <div class="form-group">
+          <label for="accessKey">Access Key</label>
+          <input type="password" id="accessKey" placeholder="Access Key를 입력하세요" />
+        </div>
+        <div class="form-group">
+          <label for="secretKey">Secret Key</label>
+          <input type="password" id="secretKey" placeholder="Secret Key를 입력하세요" />
+        </div>
+        <button id="toggleKeys" class="btn-secondary">비밀번호 표시</button>
+      </section>
+
+      <!-- 상품 ID 입력 섹션 -->
+      <section class="card input-section">
+        <h2>상품 ID 입력</h2>
+        
+        <div class="input-tabs">
+          <button class="tab-btn active" data-tab="text">텍스트 입력</button>
+          <button class="tab-btn" data-tab="file">파일 업로드</button>
+        </div>
+
+        <div id="text-tab" class="tab-content active">
+          <div class="form-group">
+            <label for="textInput">상품 ID (쉼표, 탭, 엔터로 구분)</label>
+            <textarea 
+              id="textInput" 
+              placeholder="예: 1234567&#10;2345678&#10;3456789&#10;&#10;또는&#10;&#10;1234567, 2345678, 3456789"
+              rows="6"
+            ></textarea>
+            <small>쉼표(,), 탭, 또는 엔터로 상품 ID를 구분해주세요</small>
+          </div>
+        </div>
+
+        <div id="file-tab" class="tab-content">
+          <div class="form-group">
+            <label for="csvFile">CSV 파일 업로드</label>
+            <input type="file" id="csvFile" accept=".csv" />
+            <small>첫 번째 열에 상품 ID가 있는 CSV 파일을 업로드하세요</small>
+          </div>
+        </div>
+
+        <button id="queryBtn" class="btn-primary">재고 조회</button>
+      </section>
+
+      <!-- 진행 상황 -->
+      <div id="progressSection" class="card" style="display: none;">
+        <h3>조회 중...</h3>
+        <div class="progress-bar">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+        <p id="progressText">0/0</p>
+      </div>
+
+      <!-- 결과 섹션 -->
+      <section id="resultSection" class="card" style="display: none;">
+        <div class="result-header">
+          <h2>조회 결과</h2>
+          <button id="downloadBtn" class="btn-primary">📥 CSV 다운로드</button>
+        </div>
+        <div class="result-summary">
+          <p>총 조회: <span id="totalCount">0</span>개</p>
+          <p>성공: <span id="successCount">0</span>개</p>
+          <p>실패: <span id="failCount">0</span>개</p>
+        </div>
+        <div class="table-wrapper">
+          <table id="resultTable">
+            <thead>
+              <tr>
+                <th>조회일시</th>
+                <th>옵션ID</th>
+                <th>판매자상품ID</th>
+                <th>재고수량</th>
+                <th>판매가격</th>
+                <th>판매상태</th>
+                <th>상태</th>
+              </tr>
+            </thead>
+            <tbody id="resultBody">
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 에러 메시지 -->
+      <div id="errorMessage" class="alert alert-error" style="display: none;"></div>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Coupang Inventory Inquiry</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
