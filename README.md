@@ -18,7 +18,7 @@ option_id.csv파일 맨윗줄은 option_id여야함.
 
 ## Web version
 
-#### 1. 의존성 설치
+### 1. 의존성 설치
 cd /Users/yhchae/Desktop/wk/ic/web
 npm install
 
